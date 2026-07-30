@@ -1,0 +1,36 @@
+{
+  "name": "p5.js x Vite",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22-bookworm",
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+
+  // node_modules をコンテナ内のボリュームに置き、Windows ホストとの
+  // バインドマウト経由の I/O を避けて Vite を高速に保つ
+  "mounts": [
+    "source=p5js-node-modules-${devcontainerId},target=/workspace/node_modules,type=volume"
+  ],
+
+  "forwardPorts": [5173],
+  "portsAttributes": {
+    "5173": {
+      "label": "Vite dev server",
+      "onAutoForward": "openPreview"
+    }
+  },
+
+  "postCreateCommand": "sudo chown -R node:node /workspace/node_modules && npm ci",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "editor.formatOnSave": true
+      }
+    }
+  },
+
+  "remoteUser": "node"
+}

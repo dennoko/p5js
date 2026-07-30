@@ -1,0 +1,2 @@
+# Windows ホストで clone してもコンテナ内(Linux)では LF になるように統一する
+* text=auto eol=lf
